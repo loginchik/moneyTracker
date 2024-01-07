@@ -1,0 +1,17 @@
+from aiogram.fsm.state import State, StatesGroup
+
+
+class ExpenseStates(StatesGroup):
+    
+    waiting_for_category_choice = State()
+    waiting_for_new_category_name = State()
+    
+    waiting_for_subcategory_choice = State()
+    waiting_for_new_subcategory_name = State()
+    
+    waiting_for_money_count = State()
+    
+    waiting_for_date_isnow_choice = State()
+    waiting_for_specific_date = State()
+    
+    waiting_for_results_confirmation = State()

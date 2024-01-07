@@ -1,2 +1,18 @@
-.env
+# Cache files 
 __pycache__/
+.pytest_cache/
+
+# Secret files 
+.env
+.env.*
+api_keys.txt
+
+# System 
+.DS_Store
+.vscode/
+
+# Git
+.git/
+
+# Temp
+*.log

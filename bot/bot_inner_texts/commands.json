@@ -1,0 +1,50 @@
+{
+    "basic": {
+      "start": {
+        "command": "start",
+        "descr": "Начало работы с ботом"
+      },
+      "help": {
+        "command": "help",
+        "descr": "Справка"
+      }, 
+      "about": {
+        "command": "about", 
+        "descr": "О боте"
+      }
+    }, 
+    "edit_db": {
+      "new_expense": {
+        "command": "new_expense", 
+        "descr": "Добавить новый расход"
+      }, 
+      "new_revenue": {
+        "command": "new_revenue", 
+        "descr": "Добавить новый доход"
+      }, 
+      "delete_data": {
+        "command": "delete_data", 
+        "descr": "Удалить все данные о расходах и доходах"
+      },
+      "abort": {
+        "command": "abort", 
+        "descr": "Прервать текущий процесс"
+      }
+    }, 
+    "analytics": {
+      "get_url": {
+        "command": "summary_url", 
+        "descr": "Получить ссылку на страницу с отчётом о доходах и расходах"
+      }
+    }, 
+    "export": {
+      "expense": {
+        "command": "export_expenses", 
+        "descr": "Экспортировать расходы в csv"
+      }, 
+      "revenue": {
+        "command": "export_revenues", 
+        "descr": "Экспортировать доходы в csv"
+      }
+    }
+  }

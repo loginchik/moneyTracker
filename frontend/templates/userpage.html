@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <title>Персональный отчёт #{{ user_id }}</title>
+</head>
+<body>
+    <header class="user">
+        <h1>Персональный отчёт #{{ user_id }} от {{ date_created }}</h1>
+    </header>
+    
+    <main class="user">
+        <section class="user main-section">
+            <h2>Расходы</h2>
+            
+            {% if not expenses == None %}    
+                <div class="user graph-box">
+                    <details>
+                        <summary>
+                            <h3 class="inline-heading">
+                                {{ expenses_total}} у.е. расходов за всё время на графиках
+                            </h3>
+                        </summary>
+                        <div class="details-container">
+                            <img src="{{ expenses_dynamics }}" class="graph">
+                            <img src="{{ expenses_categories }}" class="graph">
+                        </div>
+                    </details>
+
+
+                    {% if not expenses_dynamics_last_30 == None %}
+                    <details open>
+                        <summary>
+                            <h3 class="inline-heading">
+                                {{ expenses_total_30 }} у.е. расходов за последние 30 дней на графиках и в таблице
+                            </h3>
+                        </summary>
+                        <div class="details-container">
+                            <img src="{{ expenses_dynamics_last_30 }}" class="graph">
+                            <img src="{{ expenses_categories_last_30 }}" class="graph">
+                        
+                            {% if not expense_30_comparison == None %}
+                            <table class="user big-table">
+                                <tr>
+                                    {% for cell in expense_30_comparison[0] %}
+                                    <th>{{ cell }}</th>
+                                    {% endfor %}
+                                </tr>
+                                {% for row in expense_30_comparison[1:] %}
+                                <tr>
+                                    <td class="text">{{ row[0] }}</td>
+                                    <td class="text">{{ row[1] }}</td>
+                                    <td class="number">{{ row[2] }}</td>
+                                    <td class="number">{{ row[3] }}</td>
+                                    <td class="number">{{ row[4] }}</td>
+                                    <td class="number">{{ row[5] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                            {% else %}
+                            <p class="warning">Нет расходов за предыдущие 30 дней, поэтому сравнительная таблица недостуна</p>
+                            {% endif %}
+
+                            {% endif %}
+                        </div>
+                    </details>
+
+                    {% if not expenses_dynamics_last_7 == None %}
+
+                    <details>
+                        <summary>
+                            <h3 class="inline-heading">
+                                {{ expenses_total_7 }} у.е. расходов за последние 7 дней на графиках и в таблице
+                            </h3>
+                        </summary>
+                        
+                        <div class="details-container">
+                            <img src="{{ expenses_dynamics_last_7 }}" class="graph">
+                            <img src="{{ expenses_categories_last_7 }}" class="graph">
+                            
+                            {% if not expense_7_comparison == None %}
+                            <table class="user big-table">
+                                <tr>
+                                    {% for cell in expense_7_comparison[0] %}
+                                    <th>{{ cell }}</th>
+                                    {% endfor %}
+                                </tr>
+                                {% for row in expense_7_comparison[1:] %}
+                                <tr>
+                                    <td class="text">{{ row[0] }}</td>
+                                    <td class="text">{{ row[1] }}</td>
+                                    <td class="number">{{ row[2] }}</td>
+                                    <td class="number">{{ row[3] }}</td>
+                                    <td class="number">{{ row[4] }}</td>
+                                    <td class="number">{{ row[5] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                            {% else %}
+                            <p class="warning">Нет расходов за предыдущие 7 дней, поэтому сравнительная таблица недостуна</p>
+                            {% endif %}
+                            
+                            {% endif %}
+                        </div>
+                    </details>
+                </div>
+                
+                <h3>Все расходы</h3>
+                <div class="user table-box">
+                    <table class="user big-table">
+                        <tr>
+                            <th>Дата</th>
+                            <th>Категория</th>
+                            <th>Подкатегория</th>
+                            <th>Сумма</th>
+                        </tr>
+    
+                        {% for expense in expenses %}
+                        <tr>
+                            <td class="date">{{ expense.datetime_stamp }}</td>
+                            <td class="text">{{ expense.category }}</td>
+                            <td class="text">{{ expense.subcategory }}</td>
+                            <td class="number">{{ expense.money_count }}</td>
+                        </tr>
+                        {% endfor%}
+                    </table>
+                </div>            
+            {% else %}
+                <p class="warning">Вы не вносили расходы, поэтому раздел пуст </p>
+            {% endif %}
+        
+        </section>
+
+        <section class="user main-section">
+            <h2>Доходы</h2>
+            
+            {% if not revenues == None %}
+                <div class="user graph-box">
+                    <details>
+                        <summary>
+                            <h3 class="inline-heading">
+                                {{ revenues_total }} у.е. доходов за всё время на графиках
+                            </h3>
+                        </summary>
+
+                        <div class="details-container">
+                            <img src="{{ revenues_dynamics }}" class="graph">
+                            <img src="{{ revenues_categories }}" class="graph">
+                            <img src="{{ revenues_types }}" class="graph">
+                        </div>
+                    </details>
+
+                    {% if not revenues_dynamics_last_30 == None %}
+                    <details open>
+                        <summary>
+                            <h3 class="inline-heading">
+                                {{ revenues_total_30 }} у.е. доходов за последние 30 дней на графиках
+                            </h3>
+                        </summary>
+                        <div class="details-container">
+                            <img src="{{ revenues_dynamics_last_30 }}" class="graph">
+                            <img src="{{ revenues_categories_last_30 }}" class="graph">
+                            <img src="{{ revenues_types_last_30 }}" class="graph">
+                        </div>
+                    </details>
+                    {% endif %}
+
+                    {% if not revenues_dynamics_last_7 == None %}
+                    <details>
+                        <summary>
+                            <h3 class="inline-heading">
+                                {{ revenues_total_7 }} у.е. доходов за последние 7 дней на графиках
+                            </h3>
+                        </summary>
+                        <div class="details-container">
+                            <img src="{{ revenues_dynamics_last_7 }}" class="graph">
+                            <img src="{{ revenues_categories_last_7 }}" class="graph">
+                            <img src="{{ revenues_types_last_7 }}" class="graph">
+                        </div>
+                    </details>
+                    {% endif %}
+                </div>
+
+                <h3>Все доходы</h3>
+                <div class="user table-box">
+                    <table class="user big-table">
+                        <tr>
+                            <th>Дата</th>
+                            <th>Категория</th>
+                            <th>Тип</th>
+                            <th>Сумма</th>
+                        </tr>
+                        {% for revenue in revenues %}
+                        <tr>
+                            <td class="date">{{ revenue.datetime_stamp }}</td>
+                            <td class="text">{{ revenue.category }}</td>
+                            <td class="text">{{ revenue.type_ }}</td>
+                            <td class="number">{{ revenue.money_count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% else %}
+                <p class="warning">Вы ещё не вносили доходы, поэтому показывать нечего</p>
+            {% endif %}
+        
+        </section>
+    </main>
+    
+    <footer class="user">
+        <!-- <a target="_blank" href="https://icons8.com/icon/TCnKnYZFoOzM/телеграмма-app">Телеграмма App</a> иконка от <a target="_blank" href="https://icons8.com">Icons8</a> -->
+        <img src="{{ url_for('static', path='/tg.png')}}" class="icon">
+        <a href="https://{{ bot_info.href }}" target="_blank">{{ bot_info.title }}</a>
+    </footer>
+</body>
+</html>
